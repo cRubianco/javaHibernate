@@ -37,7 +37,7 @@ public class Factura {
 	private LocalDateTime fecha;
 	
 	@ManyToOne
-	@JoinColumn(name="idFact_Cliente", foreignKey=@ForeignKey(name="fk_id_factura_id_cliente"))
+	@JoinColumn(name="nroFact", foreignKey=@ForeignKey(name="fk_id_factura_id_cliente"))
 	private Cliente cliente;
 
 	@OneToMany(mappedBy = "factura", cascade = CascadeType.ALL, orphanRemoval = true)

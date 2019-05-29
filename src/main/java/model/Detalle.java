@@ -20,7 +20,7 @@ import org.hibernate.annotations.Type;
 
 public class Detalle {
 
-	//Detalle
+		//Detalle
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO, generator="nativoDeBaseDeDatos")
 	@GenericGenerator(name="nativoDeBaseDeDatos", strategy="native")
@@ -30,8 +30,13 @@ public class Detalle {
 	@JoinColumn(name="Det_Fact", foreignKey=@ForeignKey(name="fk_id_Detalle_id_Factura"))
 	private Factura factura;
 	
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "idProducto")
+
+//    @JoinColumn(name = "idProducto")
+//	@ManyToOne
+//	@JoinColumn(name="idProducto", foreignKey=@ForeignKey(name="fk_idDetalle_idProducto"))
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "idProducto", foreignKey=@ForeignKey(name="fk_idDetalle_idProducto"))
 	private Producto producto;
     
 	@Column(name="Ctdad", length=25, nullable=false)
@@ -39,7 +44,7 @@ public class Detalle {
 	private int cantidad = 0;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="Precio", foreignKey=@ForeignKey(name="fk_idDetalle_idPrecio"))
+	@JoinColumn(name="idPrecio", foreignKey=@ForeignKey(name="fk_idDetalle_idPrecio"))
 	private Precio precio;
 	
 	//Constrcutores

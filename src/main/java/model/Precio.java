@@ -4,13 +4,19 @@ import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+@Entity(name="Precio")
+@Table(name="precio")
 public class Precio {
 
 	@Id
@@ -25,6 +31,7 @@ public class Precio {
 	private LocalDateTime fecha;
 	
 	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="idProducto", foreignKey=@ForeignKey(name="fk_idPrecio_idProducto"))
 	private Producto producto;
 	
 	public Precio() {

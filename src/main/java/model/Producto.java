@@ -1,15 +1,25 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
+@Entity(name="Producto")
+@Table(name="producto")
 public class Producto {
 
 	@Id
@@ -25,24 +35,26 @@ public class Producto {
 	@Type(type="string")
 	private String descripcion;
 	
-	@Column(name="Precio", length=25)
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "idPrecio", foreignKey=@ForeignKey(name="fk_idProducto_idPrecio"))
 	private Precio precio;
 	
-	@Column(name="Proveedor")
-	private List<Proveedor> proveedores;
+	@ManyToMany(mappedBy="productos")
+	private List<Proveedor> proveedores = new ArrayList<Proveedor>();
 	
 	//Constrcutores
 	public Producto() {
 		super();
 	}
-	public Producto(String codigo, String descrip, Precio pcio, int i) {
+	public Producto(String codigo, String descrip, Precio precio, int i) {
 		this();
 		this.codigo = codigo;
 		this.descripcion = descrip;
-		this.precio = pcio;
+		this.precio = precio;
 	}
 	
 	// metodos	
+
 
 	@Override
 	public int hashCode() {
